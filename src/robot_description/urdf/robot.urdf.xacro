@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<robot name="turtlebot3_burger" xmlns:xacro="http://ros.org/wiki/xacro">
+  <!-- <xacro:include filename="$(find robot_description)/urdf/common_properties.urdf"/> -->
+
+  <!-- Init colour -->
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0" />
+  </material>
+
+  <material name="dark">
+    <color rgba="0.3 0.3 0.3 1.0" />
+  </material>
+
+  <material name="light_black">
+    <color rgba="0.4 0.4 0.4 1.0" />
+  </material>
+
+  <material name="blue">
+    <color rgba="0.0 0.0 0.8 1.0" />
+  </material>
+
+  <material name="green">
+    <color rgba="0.0 0.8 0.0 1.0" />
+  </material>
+
+  <material name="grey">
+    <color rgba="0.5 0.5 0.5 1.0" />
+  </material>
+
+  <material name="orange">
+    <color rgba="1.0 0.4235 0.0392 1.0" />
+  </material>
+
+  <material name="brown">
+    <color rgba="0.8706 0.8118 0.7647 1.0" />
+  </material>
+
+  <material name="red">
+    <color rgba="0.8 0.0 0.0 1.0" />
+  </material>
+
+  <material name="white">
+    <color rgba="1.0 1.0 1.0 1.0" />
+  </material>
+
+  <link name="base_footprint" />
+
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint" />
+    <child link="base_link" />
+    <origin xyz="0.0 0.0 0.010" rpy="0 0 0" />
+  </joint>
+
+  <link name="base_link">
+    <visual>
+      <origin xyz="-0.032 0 0.0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robot_description/meshes/chassis.STL" />
+      </geometry>
+      <material name="light_black" />
+    </visual>
+
+    <collision>
+      <origin xyz="-0.032 0 0.070" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robot_description/meshes/chassis.STL" />
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="8.2573504e-01" />
+      <inertia ixx="2.2124416e-03" ixy="-1.2294101e-05" ixz="3.4938785e-05" iyy="2.1193702e-03" iyz="-5.0120904e-06" izz="2.0064271e-03" />
+    </inertial>
+  </link>
+
+  <!-- laserscan front -->
+
+  <link name="laserscan_front">
+    <inertial>
+      <origin xyz="0.02471 6.5845E-10 -0.011912" rpy="0 0 0" />
+      <mass value="0.32341" />
+      <inertia ixx="1.9683E-05" ixy="6.844E-12" ixz="-0.00012644" iyy="0.00083192" iyz="1.0654E-12" izz="0.00081224" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robot_description/meshes/laserscan_front.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robot_description/meshes/laserscan_front.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="chassis_laserscan_front" type="fixed">
+    <origin xyz="0.76419 0.351 0.28335" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="laserscan_front" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+  <link name="laserscan_back">
+    <inertial>
+      <origin xyz="0.007429 -9.2927E-10 -0.016915" rpy="0 0 0" />
+      <mass value="0.22916" />
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robot_description/meshes/laserscan_back.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0 0 0 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robot_description/meshes/laserscan_back.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="chassis_laserscan_back" type="fixed">
+    <origin xyz="-0.76419 -0.351 0.28335" rpy="0 0 3.14" />
+    <parent link="base_link" />
+    <child link="laserscan_back" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+</robot>
