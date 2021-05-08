@@ -1,6 +1,13 @@
 <?xml version="1.0"?>
 <robot name="turtlebot3_burger" xmlns:xacro="http://ros.org/wiki/xacro">
-  <!-- <xacro:include filename="$(find robot_description)/urdf/common_properties.urdf"/> -->
+
+  <xacro:macro name="cylinder_inertia" params="m r h">
+    <inertial>
+      <mass value="${m}" />
+      <inertia ixx="${m*(3*r*r+h*h)/12}" ixy="0.0" ixz="0.0" iyy="${m*(3*r*r+h*h)/12}" iyz="0.0" izz="${m*r*r/2}" />
+    </inertial>
+  </xacro:macro>
+
 
   <!-- Init colour -->
   <material name="black">
@@ -99,7 +106,66 @@
     </collision>
   </link>
 
-  <joint name="chassis_laserscan_front" type="fixed">
+
+  <link name="drive_wheel_right">
+    <inertial>
+      <mass value="1.3118" />
+      <inertia ixx="0.001418" ixy="0.0" ixz="0.0" iyy="0.004244" iyz="0.0" izz="0.00677" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robot_description/meshes/drive_wheel_right.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.29804 0.29804 0.29804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robot_description/meshes/drive_wheel_right.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="drive_wheel_right_joint" type="continuous">
+    <origin xyz="0.074873 -0.34278 0.086706" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="drive_wheel_right" />
+    <axis xyz="0 1 0" />
+  </joint>
+
+  <link name="drive_wheel_left">
+    <inertial>
+      <mass value="1.3118" />
+      <inertia ixx="0.001418" ixy="0.0" ixz="0.0" iyy="0.004244" iyz="0.0" izz="0.00677" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robot_description/meshes/drive_wheel_left.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.29804 0.29804 0.29804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robot_description/meshes/drive_wheel_left.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="drive_wheel_left_joint" type="continuous">
+    <origin xyz="0.074873 0.34278 0.086706" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="drive_wheel_left" />
+    <axis xyz="0 1 0" />
+  </joint>
+
+  <joint name="base_link_laserscan_front" type="fixed">
     <origin xyz="0.76419 0.351 0.28335" rpy="0 0 0" />
     <parent link="base_link" />
     <child link="laserscan_front" />
@@ -129,10 +195,40 @@
     </collision>
   </link>
 
-  <joint name="chassis_laserscan_back" type="fixed">
+  <joint name="base_link_laserscan_back" type="fixed">
     <origin xyz="-0.76419 -0.351 0.28335" rpy="0 0 3.14" />
     <parent link="base_link" />
     <child link="laserscan_back" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+  <link name="imu_link">
+    <inertial>
+      <origin xyz="3.3961E-18 3.8417E-18 0.005" rpy="0 0 0" />
+      <mass value="0.026795" />
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robot_description/meshes/imu_adis1647x_pcb.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://robot_description/meshes/imu_adis1647x_pcb.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="base_imu_link" type="fixed">
+    <origin xyz="0 0 0.00122" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="imu_link" />
     <axis xyz="0 0 0" />
   </joint>
 
