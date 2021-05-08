@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <sdf version="1.5">
+    
     <model name="robot">
         <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
 
@@ -35,7 +36,7 @@
                         <!-- <scale>0.001 0.001 0.001</scale> -->
                     </mesh>
                 </geometry>
-                <material name="light_black"/>
+                <material>Gazebo/Orange</material>
             </visual>
         </link>
         <joint name="base_link_joint" type="fixed">
@@ -95,7 +96,7 @@
                         <!-- <scale>0.001 0.001 0.001</scale> -->
                     </mesh>
                 </geometry>
-                <material name="dark"/>
+                <material>Gazebo/Blue</material>
             </visual>
         </link>
         <joint name="drive_wheel_right_joint" type="revolute">
@@ -158,7 +159,7 @@
                         <!-- <scale>0.001 0.001 0.001</scale> -->
                     </mesh>
                 </geometry>
-                <material name="dark"/>
+                <material>Gazebo/Blue</material>
             </visual>
         </link>
         <joint name="drive_wheel_left_joint" type="revolute">
@@ -205,7 +206,7 @@
 
         <plugin name="joint_state" filename="libgazebo_ros_joint_state_publisher.so">
             <ros>
-                <!-- <namespace>/tb3</namespace> -->
+                <!-- <namespace>/robot</namespace> -->
                 <remapping>~/out:=joint_states</remapping>
             </ros>
             <update_rate>30</update_rate>
@@ -243,9 +244,10 @@
                         <!-- <scale>0.001 0.001 0.001</scale> -->
                     </mesh>
                 </geometry>
-                <material name="grey"/>
+                <color rgba="0.4 0.4 0.4 1.0" />
             </visual>
             <sensor type="ray" name="head_hokuyo_sensor">
+                <namespace>/robot</namespace>
                 <pose>0.76419 0.351 0.28335 0 0 0</pose>
                 <ray>
                     <scan>
@@ -267,8 +269,8 @@
                 <update_rate>40</update_rate>
                 <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_ray_sensor.so">
                     <ros>
-                        <namespace>/laser_back</namespace>
-                        <remapping>~/out:=scan</remapping>
+                        <namespace>/robot</namespace>
+                        <remapping>~/out:=laser_back/scan</remapping>
                     </ros>
                     <output_type>sensor_msgs/LaserScan</output_type>
                     <frameName>laserscan_front</frameName>
@@ -311,7 +313,7 @@
                         <!-- <scale>0.001 0.001 0.001</scale> -->
                     </mesh>
                 </geometry>
-                <material name="grey"/>
+                <color rgba="0.4 0.4 0.4 1.0" />
             </visual>
             <sensor type="ray" name="head_hokuyo_sensor">
                 <pose>-0.76419 -0.351 0.28335 0 0 3.14</pose>
@@ -335,8 +337,8 @@
                 <update_rate>40</update_rate>
                 <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_ray_sensor.so">
                     <ros>
-                        <namespace>/laser_front</namespace>
-                        <remapping>~/out:=scan</remapping>
+                        <namespace>/robot</namespace>
+                        <remapping>~/out:=laser_front/scan</remapping>
                     </ros>
                     <output_type>sensor_msgs/LaserScan</output_type>
                     <frameName>laserscan_back</frameName>
@@ -383,7 +385,7 @@
             <sensor name="imu_sensor" type="imu">
                 <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
                     <ros>
-                        <namespace>/imu</namespace>
+                        <namespace>/robot</namespace>
                         <remapping>~/out:=imu</remapping>
                     </ros>
                     <bodyName>imu_adis1647x_pcb</bodyName>
