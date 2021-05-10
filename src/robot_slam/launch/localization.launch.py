@@ -75,7 +75,7 @@ def generate_launch_description():
             output='screen',
             parameters=[configured_params],
             remappings=remappings),
-
+        
         Node(
             package='nav2_lifecycle_manager',
             executable='lifecycle_manager',
@@ -83,5 +83,5 @@ def generate_launch_description():
             output='screen',
             parameters=[{'use_sim_time': use_sim_time},
                         {'autostart': autostart},
-                        {'node_names': lifecycle_nodes}])
+                        {'node_names': lifecycle_nodes}]),
     ])

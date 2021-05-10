@@ -31,7 +31,7 @@ def generate_launch_description():
         'map',
         default=os.path.join(
             get_package_share_directory('robot_slam'),
-            'map',
+            'maps',
             'map.yaml'))
 
     param_file_name = 'nav2_params.yaml'

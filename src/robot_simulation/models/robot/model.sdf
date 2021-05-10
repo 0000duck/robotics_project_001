@@ -174,7 +174,7 @@
         <plugin name="diff_drive" filename="libgazebo_ros_diff_drive.so">
 
             <ros>
-                <namespace>/robot</namespace>
+                <namespace>/</namespace>
             </ros>
 
             <update_rate>30</update_rate>

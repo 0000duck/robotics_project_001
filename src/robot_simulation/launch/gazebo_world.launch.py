@@ -21,8 +21,6 @@ def generate_launch_description():
     launch_file_dir = os.path.join(get_package_share_directory('robot_description'), 'launch')
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
 
-    rviz_config_dir = os.path.join(get_package_share_directory('robot_simulation'), 'rviz','single_robot.rviz')
-
     return LaunchDescription([
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
@@ -36,13 +34,6 @@ def generate_launch_description():
                 os.path.join(pkg_gazebo_ros, 'launch', 'gzclient.launch.py')
             ),
         ),
-
-        Node(
-            package='rviz2',
-            executable='rviz2',
-            name='rviz2',
-            arguments=['-d', rviz_config_dir],
-            output='screen'),
             
         ExecuteProcess(
             cmd=['ros2', 'param', 'set', '/gazebo', 'use_sim_time', use_sim_time],
